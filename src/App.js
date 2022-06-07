@@ -32,21 +32,32 @@ function App() {
     ];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
+
+  const [showScore, setShowScore] = useState(false);
+
+  const handleAnswerButtonClick = () => {
+    const nextQuestion = currentQuestion + 1;
+    if(nextQuestion < questions.length) {
+      setCurrentQuestion(nextQuestion);
+    } else {
+      setShowScore(true);
+    }
+  }
   return (
     <div className='app'>
-    {false ? (
-      <div className='score-section'>You scored 1 out of {questions.length}</div>
+    {showScore ? (
+        <div className='score-section'>You scored 1 out of {questions.length}</div>
       ) : (
         <>
         <div className='question-section'>
           <div className='question-count'>
-              <span>Question 1</span>{questions.length}
+              <span>Question 1</span>/{questions.length}
             </div>
             <div className='question-text'>{questions[currentQuestion].questionText}</div>
         </div>
         <div className='answer-section'>
-          {questions[0].answerChoices.map((answerChoice) => (
-            <button>{answerChoice.answerText}</button>
+          {questions[currentQuestion].answerChoices.map((answerChoice) => (
+            <button onClick={handleAnswerButtonClick}>{answerChoice.answerText}</button>
           ))}
         </div>
       </>
