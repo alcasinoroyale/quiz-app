@@ -12,12 +12,12 @@ function App() {
         ],
       },
       {
-        questionText: 'How many Harry Potter books are there?',
+        questionText: 'How many NHL teams are there?',
         answerChoices: [
-          { answerText: '2', isCorrect: false },
-          { answerText: '4', isCorrect: false },
-          { answerText: '5', isCorrect: false },
-          { answerText: '7', isCorrect: true},
+          { answerText: '28', isCorrect: false },
+          { answerText: '30', isCorrect: false },
+          { answerText: '32', isCorrect: true },
+          { answerText: '34', isCorrect: false},
         ],
       },
       {
@@ -29,11 +29,21 @@ function App() {
           { answerText: 'Resident Evil', isCorrect: false},
         ],
       },
+
     ];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
+
+  const [recordedScore, setRecordedScore] = useState(0);
+
+  const resetStateClick =()=> {
+    setCurrentQuestion(0)
+    setShowScore(false)
+    setScore(0)
+    setRecordedScore(score)
+  }
 
   const handleAnswerButtonClick = (isCorrect) => {
     if(isCorrect) {
@@ -49,10 +59,14 @@ function App() {
   return (
     <div className='app'>
     {showScore ? (
-        <div className='score-section'>You scored {score} out of {questions.length}</div>
+        <div className='score-section'>You scored {score} out of {questions.length}
+          <button onClick={resetStateClick} className="restart">Restart the Quiz</button>
+          <div className='last-score'><p>Your Last Score: {recordedScore}</p></div>
+        </div>
       ) : (
         <>
         <div className='question-section'>
+          <h1>React Quiz</h1>
           <div className='question-count'>
               <span>Question {currentQuestion + 1}</span>/{questions.length}
             </div>
